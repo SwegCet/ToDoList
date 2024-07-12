@@ -5,7 +5,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>To-Do-List</title>
-    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
@@ -24,52 +23,12 @@
                 </li>
             </div>
 
-            <button class="add" onclick="addPopup()">+</button>
+            <button class="add">+</button>
         </nav>
 
-        <div id="content">
-            <!-- Create a form that has header, sidebar and text-area-->
-            <form class="create-new">
-                <div class="create-new-header">
-                    <h2 class="create-new-title">Create a New...</h2>
-                    <div class="create-new-close">x</div>
-                </div>
-                <div class="create-new-content">
-                    <div class="create-new-sidebar">
-                        <div class="create-new-options">
-                            <li id="new-todo-link">To Do</li>
-                            <li id="new-todo-projects">Project</li>
-                        </div>
-                    </div>
-                    <!--This is for the new To Do area-->
-                    <div class="create-new-entry" id="new-todo-menu">
-                        <textarea class="create-new-input" id="new-todo-title" placeholder="Title: "
-                            required></textarea>
-                        <textarea class="create-new-input-big" id="new-todo-titles" placeholder="Details: "
-                            required></textarea>
-                        <div class="create-new-date">
-                            <div class="create-new-date-title">Due Date: </div>
-                            <input type="date" class="create-new-input" id="new-todo-date" required>
-                        </div>
-                        <div class="create-new-priority-wrapper-submit">
-                            <div class="create-new-priority">
-                                <div class="create-new-priority-title">Priority: </div>
+        <div id="content"></div>
 
-                                <label class="create-new-low">
-                                    <input type="radio" id="create-new-low">
-                                    Low
-                                </label>
-                                <label class="create-new-medium">
-                                    <input type="radio" id="create-new-medium">
-                                    Medium
-                                </label>
-                                <label class="create-new-high">
-                                    <input type="radio" id="create-new-high">
-                                    High
-                                </label>
-                            </div>
-                            <input type="submit" class="create-new-todo-submit" id="todo-submit" value="Add To Do">
-                        </div>
+
 </body>
 
 </html>
