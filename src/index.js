@@ -1,1 +1,1 @@
-console.log('Proph needs to save me');
+//this file should contain importing from the function.js to just load up the html
