@@ -4,13 +4,43 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="./style.css" rel="stylesheet">
     <title>To-Do-List</title>
 </head>
 
 <body>
-    <header>
-        <nav></nav>
-    </header>
+    <div class="container">
+        <header> To-Do List </header>
+
+        <nav class="sidebar">
+            <div class="navigation">
+                <li id="nav-home">Home</li>
+                <li id="nav-today">Today</li>
+                <li id="nav-week">Week</li>
+                <li class="nav-projects">
+                    <span class="nav-projects-title">Projects</span>
+                    <ul class="projects">
+                        <li class="projects-item-custom">Gym</li>
+                        <li class="projects-item-custom">Study</li>
+                        <li class="projects-item-custom">Work</li>
+                    </ul>
+                </li>
+            </div>
+
+            <button class="add">+</button>
+        </nav>
+
+        <div id="content">
+            <div class="task-card">
+                <input type="checkbox" id="check">
+                <div class="task-title"> Title 123 </div>
+                <div class="task-details"> details 123</div>
+                <div class="taskDate"> june 8th</div>
+                <button id="edit">edit</button>
+                <button id="delete">delete</button>
+            </div>
+        </div>
+    </div>
 </body>
 
 </html>
