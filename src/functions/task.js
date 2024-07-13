@@ -1,6 +1,5 @@
 //here we define task class
-
-/*export default class toDoTask {
+export default class toDoTask {
     constructor(title, detail, date, priority, completed = false) {
         this.title = title;
         this.detail = detail;
@@ -14,4 +13,3 @@
     }
 }
 
-*/
