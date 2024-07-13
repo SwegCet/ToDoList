@@ -1,4 +1,5 @@
 import { clearContent } from "..";
+import { handleSubmit } from "./UI";
 import closeIcon from '../svgs/close.svg';
 import '../style.css';
 
@@ -198,6 +199,8 @@ export function createFormTasks() {
         console.log('Close button was clicked');
     });
 
+    //call function for data submission
+    form.addEventListener('submit', handleSubmit);
 }
 
 export function addProject() {
