@@ -1,9 +1,9 @@
-import toDoTask from "./task";
+import { clearContent } from "..";
 import closeIcon from '../svgs/close.svg';
 import '../style.css';
 
 
-export function addPopup() {
+export function createFormTasks() {
     const content = document.querySelector('#content');
 
     //create the DOM for the form.
@@ -173,4 +173,141 @@ export function addPopup() {
     form.appendChild(createNewContent);
 
     content.appendChild(form);
+
+    //Changes back to Task Tab
+    const addToDo = document.querySelector('#new-todo-link');
+    addToDo.addEventListener('click', () => {
+        clearContent();
+        createFormTasks();
+        console.log('ToDo was clicked');
+    })
+
+    //Changes form to Projects Tab
+    const addProjects = document.querySelector('#new-todo-projects')
+    addProjects.addEventListener('click', () => {
+        clearContent();
+        addProject();
+        console.log('Projects was clicked');
+    });
+
+    //if close button was clicked, close the form
+    const closeButton = document.querySelector('.closeIconButton');
+
+    closeButton.addEventListener('click', () => {
+        clearContent();
+        console.log('Close button was clicked');
+    });
+
+}
+
+export function addProject() {
+    const content = document.querySelector('#content');
+
+    // Practically the same form but just title input
+    const form = document.createElement('form');
+    form.className = 'create-new';
+
+    //the header for the form
+    const createNewHeader = document.createElement('div');
+    createNewHeader.className = 'create-new-header';
+
+    const createTitle = document.createElement('h2');
+    createTitle.className = 'create-new-title';
+    createTitle.textContent = 'Create a New...'
+
+    const createClose = document.createElement('div');
+    createClose.className = 'create-new-close';
+
+    const xIcon = document.createElement('img');
+    xIcon.className = 'closeIconButton';
+    xIcon.src = closeIcon;
+
+    //the sidebar for the form
+    const createNewContent = document.createElement('div');
+    createNewContent.className = 'create-new-content';
+
+    const sidebar = document.createElement('div');
+    sidebar.className = 'create-new-sidebar';
+
+    const sidebarOptions = document.createElement('div');
+    sidebarOptions.className = 'create-new-options';
+
+    const toDoList = document.createElement('li');
+    toDoList.setAttribute('id', 'new-todo-link');
+    toDoList.textContent = 'To Do';
+
+    const projectList = document.createElement('li');
+    projectList.setAttribute('id', 'new-todo-projects')
+    projectList.textContent = 'Project';
+
+    //Input Section Should be just the title input and submit button
+    const newEntry = document.createElement('div'); // this is the parent of everything else below it
+    newEntry.className = 'create-new-entry';
+    newEntry.setAttribute('id', 'new-todo-menu');
+
+    //text input section
+    const titleInput = document.createElement('textarea');
+    titleInput.className = 'create-new-input';
+    titleInput.setAttribute('id', 'new-todo-title');
+    titleInput.placeholder = 'Create New Project :'
+    titleInput.setAttribute('required', 'required');
+
+    //Button
+    const projectContainer = document.createElement('div');
+    projectContainer.setAttribute('id', 'create-new-project-container')
+    projectContainer.className = 'project-container';
+
+    const createProjectButton = document.createElement('input');
+    createProjectButton.setAttribute('type', 'submit');
+    createProjectButton.setAttribute('id', 'project-submit');
+    createProjectButton.setAttribute('value', 'Create Project');
+    createProjectButton.className = 'create-new-project-submit';
+
+    projectContainer.appendChild(createProjectButton);
+
+    //Append Child - Input Section
+    newEntry.appendChild(titleInput);
+    newEntry.appendChild(projectContainer);
+
+    //Sidebar Section
+    sidebarOptions.appendChild(toDoList);
+    sidebarOptions.appendChild(projectList);
+    sidebar.appendChild(sidebarOptions);
+    createNewContent.appendChild(sidebar);
+    createNewContent.appendChild(newEntry)
+
+    //Header append
+    createClose.appendChild(xIcon);
+    createNewHeader.appendChild(createTitle);
+    createNewHeader.appendChild(createClose);
+
+    //WHOLE FORM APPEND
+    form.appendChild(createNewHeader);
+    form.appendChild(createNewContent);
+
+    content.appendChild(form);
+
+    //Changes back to Task Tab
+    const addToDo = document.querySelector('#new-todo-link');
+    addToDo.addEventListener('click', () => {
+        clearContent();
+        createFormTasks();
+        console.log('ToDo was clicked');
+    })
+
+    //Changes form to Projects Tab
+    const addProjects = document.querySelector('#new-todo-projects')
+    addProjects.addEventListener('click', () => {
+        clearContent();
+        addProject();
+        console.log('Projects was clicked');
+    });
+
+    //if close button was clicked, close the form
+    const closeButton = document.querySelector('.closeIconButton');
+
+    closeButton.addEventListener('click', () => {
+        clearContent();
+        console.log('Close button was clicked');
+    });
 }
