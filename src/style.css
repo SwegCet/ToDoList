@@ -32,6 +32,7 @@ header {
     background-color: lightcoral;
     grid-column: 1 / 3;
     padding: 30px;
+    cursor: default;
 }
 
 
@@ -50,8 +51,21 @@ header {
     list-style-type: none;
 }
 
+#nav-home {
+    cursor: pointer;
+}
+
+#nav-today {
+    cursor: pointer;
+}
+
+#nav-week {
+    cursor: pointer;
+}
+
 .nav-projects-title {
     font-weight: bold;
+    cursor: default;
 }
 
 .nav-projects {
@@ -68,8 +82,8 @@ header {
 
 li {
     list-style: none;
-    cursor: pointer;
 }
+
 
 .add {
     display: flex;
@@ -165,6 +179,8 @@ textarea {
 .create-new-entry {
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
+    position: relative;
     width: calc(960px - 168px);
 }
 
@@ -262,4 +278,27 @@ input[type="radio"] {
     border: 1px solid green;
     padding: 10px;
     color: green;
+    cursor: pointer;
+}
+
+.create-new-todo-submit:hover {
+    color: white;
+    background-color: green;
+}
+
+.create-new-project-submit {
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
+    align-items: start;
+    background-color: white;
+    border: 1px solid green;
+    padding: 10px;
+    color: green;
+    cursor: pointer;
+}
+
+.create-new-project-submit:hover {
+    color: white;
+    background-color: green;
 }
