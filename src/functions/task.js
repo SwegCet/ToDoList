@@ -1,15 +1,20 @@
 //here we define task class
 export default class toDoTask {
-    constructor(title, detail, date, priority, completed = false) {
+    constructor(title, detail, date, priority) {
         this.title = title;
         this.detail = detail;
         this.date = date;
         this.priority = priority;
-        this.completed = completed;
+    }
+}
+
+export class toDoList {
+    constructor() {
+        this.tasks = []
     }
 
-    completedStatus() {
-        return this.completed ? 'True' : 'False';
+    addTask(task) {
+        this.tasks.push(task);
     }
 }
 
