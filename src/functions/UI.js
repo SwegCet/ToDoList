@@ -1,37 +1,39 @@
 import ToDoTask from './task';
-import { toDoList } from './task';
-import { createFormTasks } from './add';
+import { ToDoList } from './task';
 import { addProject } from './add';
+import { displayTask } from './add';
 import { clearContent } from '..';
 import '../style.css';
 
+//global variable
+let taskList = new ToDoList();
 
 //ensure the DOM is loaded
 document.addEventListener('DOMContentLoaded', function () {
     window.handleSubmit = handleSubmit;
 });
 
-// Function to get form data
-function getFormData() {
-    const title = document.querySelector('#new-todo-title').value;
-    const details = document.querySelector('#new-todo-titles').value;
-    const date = document.querySelector('#new-todo-date').value;
-    const priority = document.querySelector('input[name="option"]:checked').value;
-
-    return { title, details, date, priority };
-}
 export function handleSubmit(event) {
     event.preventDefault();
 
-    const formData = getFormData();
+    const title = document.querySelector('#new-todo-title').value;
+    const detail = document.querySelector('#new-todo-titles').value;
+    const date = document.querySelector('#new-todo-date').value;
+    const priority = document.querySelector('input[name="option"]:checked').value;
 
-    const newTask = new ToDoTask(formData);
+    const newTask = new ToDoTask(title, detail, date, priority);
 
     addTaskList(newTask);
 
-    let taskList = new toDoList();
+    //taskList.addTask(newTask);
+    updateTodoList();
 
-    taskList.addTask(newTask);
+    const form = document.querySelector('.create-new');
+    form.remove();
+
+    displayTask(newTask);
+
+    console.log(taskList);
 }
 
 
@@ -41,7 +43,14 @@ function addTaskList(task) {
     console.log(`Date : ${task.date}`);
     console.log(`Priority : ${task.priority}`);
 }
-//ensures handlesubmit is globally accessible
-document.addEventListener('DOMContentLoaded', function () {
-    window.handleSubmit = handleSubmit;
-});
+
+function getTodoList() {
+    const todoList = localStorage.getItem("task");
+
+}
+
+function updateTodoList(task) {
+    localStorage.setItem("task", taskList(newTask));
+
+    getTodoList();
+}
