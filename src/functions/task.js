@@ -1,5 +1,5 @@
 //here we define task class
-export default class toDoTask {
+export default class ToDoTask {
     constructor(title, detail, date, priority) {
         this.title = title;
         this.detail = detail;
@@ -8,7 +8,7 @@ export default class toDoTask {
     }
 }
 
-export class toDoList {
+export class ToDoList {
     constructor() {
         this.tasks = []
     }
