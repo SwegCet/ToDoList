@@ -1,14 +1,16 @@
 import { clearContent } from "..";
 import { handleSubmit } from "./UI";
+import trashIcon from '../svgs/trash-can-outline.svg';
 import closeIcon from '../svgs/close.svg';
 import '../style.css';
+import { ToDoList } from "./task";
 
 
 export function createFormTasks() {
+
     const content = document.querySelector('#content');
 
     //create the DOM for the form.
-
     const form = document.createElement('form');
     form.className = 'create-new';
 
@@ -96,6 +98,7 @@ export function createFormTasks() {
     priorityLowInput.setAttribute('type', 'radio');
     priorityLowInput.setAttribute('id', 'create-new-low');
     priorityLowInput.setAttribute('name', 'option');
+    priorityLowInput.setAttribute('value', 'Low');
 
     //checks if the buttons work
     priorityLow.addEventListener('click', () => {
@@ -109,6 +112,7 @@ export function createFormTasks() {
     priorityMedInput.setAttribute('type', 'radio');
     priorityMedInput.setAttribute('id', 'create-new-medium');
     priorityMedInput.setAttribute('name', 'option');
+    priorityMedInput.setAttribute('value', 'Medium');
 
     //checks if the buttons work
     priorityMed.addEventListener('click', () => {
@@ -122,6 +126,7 @@ export function createFormTasks() {
     priorityHighInput.setAttribute('type', 'radio');
     priorityHighInput.setAttribute('id', 'create-new-high');
     priorityHighInput.setAttribute('name', 'option');
+    priorityHighInput.setAttribute('value', 'High');
 
     //checks if the buttons work
     priorityHigh.addEventListener('click', () => {
@@ -178,7 +183,7 @@ export function createFormTasks() {
     //Changes back to Task Tab
     const addToDo = document.querySelector('#new-todo-link');
     addToDo.addEventListener('click', () => {
-        clearContent();
+        form.remove();
         createFormTasks();
         console.log('ToDo was clicked');
     })
@@ -186,7 +191,7 @@ export function createFormTasks() {
     //Changes form to Projects Tab
     const addProjects = document.querySelector('#new-todo-projects')
     addProjects.addEventListener('click', () => {
-        clearContent();
+        form.remove();
         addProject();
         console.log('Projects was clicked');
     });
@@ -195,12 +200,13 @@ export function createFormTasks() {
     const closeButton = document.querySelector('.closeIconButton');
 
     closeButton.addEventListener('click', () => {
-        clearContent();
+        form.remove();
         console.log('Close button was clicked');
     });
 
     //call function for data submission
     form.addEventListener('submit', handleSubmit);
+
 }
 
 export function addProject() {
@@ -293,7 +299,7 @@ export function addProject() {
     //Changes back to Task Tab
     const addToDo = document.querySelector('#new-todo-link');
     addToDo.addEventListener('click', () => {
-        clearContent();
+        form.remove();
         createFormTasks();
         console.log('ToDo was clicked');
     })
@@ -301,7 +307,7 @@ export function addProject() {
     //Changes form to Projects Tab
     const addProjects = document.querySelector('#new-todo-projects')
     addProjects.addEventListener('click', () => {
-        clearContent();
+        form.remove();
         addProject();
         console.log('Projects was clicked');
     });
@@ -313,4 +319,47 @@ export function addProject() {
         clearContent();
         console.log('Close button was clicked');
     });
+}
+
+//Function to display task
+export function displayTask(task) {
+    const taskContainer = document.querySelector('.task-container');
+
+    //Create task-card
+    const taskCard = document.createElement('div');
+    taskCard.className = 'task-card';
+
+    //Input
+    const completeCheck = document.createElement('input');
+    completeCheck.setAttribute('type', 'checkbox');
+    completeCheck.setAttribute('id', 'check');
+
+    const taskTitle = document.createElement('div');
+    taskTitle.className = 'task-title';
+    taskTitle.textContent = task.title;
+
+    const taskDetail = document.createElement('div');
+    taskDetail.className = 'task-detail';
+    taskDetail.textContent = task.detail
+
+    const taskDate = document.createElement('div');
+    taskDate.className = 'task-date';
+    taskDate.textContent = task.date;
+
+    const taskPriority = document.createElement('div');
+    taskPriority.className = 'task-priority';
+    taskPriority.textContent = task.priority;
+
+    const deleteButton = document.createElement('img');
+    deleteButton.setAttribute('id', 'delete');
+    deleteButton.src = trashIcon;
+
+    taskCard.appendChild(completeCheck);
+    taskCard.appendChild(taskTitle);
+    taskCard.appendChild(taskDetail);
+    taskCard.appendChild(taskDate);
+    taskCard.appendChild(taskPriority);
+    taskCard.appendChild(deleteButton);
+
+    taskContainer.appendChild(taskCard);
 }
