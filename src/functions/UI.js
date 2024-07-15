@@ -1,12 +1,12 @@
 import ToDoTask from './task';
 import { ToDoList } from './task';
-import { addProject } from './add';
-import { displayTask } from './add';
+import { addProject, domTask } from './add';
+import { domCreateTaskCard } from './add';
 import { clearContent } from '..';
 import '../style.css';
 
 //global variable
-let taskList = new ToDoList();
+//let taskList = new ToDoList();
 
 //ensure the DOM is loaded
 document.addEventListener('DOMContentLoaded', function () {
@@ -23,34 +23,53 @@ export function handleSubmit(event) {
 
     const newTask = new ToDoTask(title, detail, date, priority);
 
-    addTaskList(newTask);
 
-    //taskList.addTask(newTask);
-    updateTodoList();
+    //call getTodoList
+    getTodoList();
 
+    //Update todoList
+    updateTodoList(newTask);
+
+    console.log(getTodoList());
     const form = document.querySelector('.create-new');
     form.remove();
 
-    displayTask(newTask);
-
-    console.log(taskList);
-}
-
-
-function addTaskList(task) {
-    console.log(`Title : ${task.title}`);
-    console.log(`Detail : ${task.detail}`);
-    console.log(`Date : ${task.date}`);
-    console.log(`Priority : ${task.priority}`);
+    displayTask();
 }
 
 function getTodoList() {
-    const todoList = localStorage.getItem("task");
+    //get todoList if it doesn't exist it creates an empty array
+    //parse the array
+    let todoList = JSON.parse(localStorage.getItem('taskList') ?? '[]');
 
+    //sort by date?
+    todoList.sort((a, b) => {
+        let dateA = new Date(a.date);
+        let dateB = new Date(b.date);
+
+        return dateA - dateB;
+    });
+
+    return todoList
 }
 
+//Function to update the todoList
 function updateTodoList(task) {
-    localStorage.setItem("task", taskList(newTask));
+    //get todoList
+    const taskList = getTodoList();
 
-    getTodoList();
+    //pushes task into array
+    taskList.push(task);
+
+    //updates array
+    localStorage.setItem('taskList', JSON.stringify(taskList));
+}
+
+//display function
+function displayTask() {
+    //Get taskList from local storage
+    const taskList = JSON.parse(localStorage.getItem('taskList'));
+
+    //renders container
+    taskList.forEach(domCreateTaskCard);
 }
