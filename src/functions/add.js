@@ -322,7 +322,7 @@ export function addProject() {
 }
 
 //Function to display task
-export function displayTask(task) {
+export function domCreateTaskCard(task) {
     const taskContainer = document.querySelector('.task-container');
 
     //Create task-card
