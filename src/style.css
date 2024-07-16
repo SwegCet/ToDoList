@@ -201,11 +201,13 @@ textarea {
 .create-new-input {
     height: 50px;
     border: 0;
+    padding: 1rem;
 }
 
 .create-new-input-big {
     height: 200px;
     border: 0;
+    padding: 1rem;
 }
 
 .create-new-date {
@@ -214,6 +216,7 @@ textarea {
     align-items: center;
     gap: 10px;
     font-size: 18px;
+    padding: 1rem;
 }
 
 #new-todo-date {
@@ -228,6 +231,7 @@ textarea {
 .create-new-priority-wrapper-submit {
     display: flex;
     justify-content: space-between;
+    padding: 1rem;
 }
 
 .create-new-priority {
@@ -315,4 +319,13 @@ input[type="radio"] {
 .create-new-project-submit:hover {
     color: white;
     background-color: green;
+}
+
+#create-new-project-container {
+    display: flex;
+    justify-content: end;
+}
+
+.project-items:hover {
+    cursor: pointer;
 }

@@ -1,17 +1,7 @@
 import ToDoTask from './task';
-import { ToDoList } from './task';
-import { addProject, domTask } from './add';
-import { domCreateTaskCard } from './add';
-import { clearContent } from '..';
+import { Project } from './task';
+import { renderTask, renderProject } from './add';
 import '../style.css';
-
-//global variable
-//let taskList = new ToDoList();
-
-//ensure the DOM is loaded
-document.addEventListener('DOMContentLoaded', function () {
-    window.handleSubmit = handleSubmit;
-});
 
 export function handleSubmit(event) {
     event.preventDefault();
@@ -70,6 +60,75 @@ function displayTask() {
     //Get taskList from local storage
     const taskList = JSON.parse(localStorage.getItem('taskList'));
 
+    //clears current task container if exists
+    const taskContainer = document.querySelector('.task-container');
+    taskContainer.textContent = '';
+
     //renders container
-    taskList.forEach(domCreateTaskCard);
+    taskList.forEach(renderTask);
+}
+
+//remove function
+export function removeTask(taskId) {
+    //Gets Todo List
+    let taskList = getTodoList();
+
+    //filters based off ID matches
+    taskList = taskList.filter(task => task.id !== taskId); //Filters out task that matches
+
+
+    //update localStorage
+    localStorage.setItem('taskList', JSON.stringify(taskList));
+
+    //updates the render
+    displayTask();
+}
+
+export function handleProjectSubmit(event) {
+    event.preventDefault();
+
+    const title = document.querySelector('#new-project-title').value;
+
+    const newProject = new Project(title);
+
+    //call getProjectList
+    getProjectList();
+
+    //call updateProjectList
+    updateProjectList(newProject);
+
+    console.log(getProjectList);
+    const form = document.querySelector('.create-new');
+    form.remove();
+
+    displayProject();
+}
+
+function getProjectList() {
+    //Get Project List
+    let projectList = JSON.parse(localStorage.getItem('projectList') ?? '[]');
+
+    return projectList
+}
+
+//Update projectList
+function updateProjectList(project) {
+    //Get Project List
+    const projectList = getProjectList();
+
+    //pushes project into array
+    projectList.push(project);
+
+    //update project array
+    localStorage.setItem('projectList', JSON.stringify(projectList));
+}
+
+function displayProject() {
+    const projectList = JSON.parse(localStorage.getItem('projectList'));
+
+    //clear current current project container
+    const projectContainer = document.querySelector('.projects');
+    projectContainer.textContent = '';
+
+    projectList.forEach(renderProject);
 }
