@@ -1,9 +1,10 @@
 import { clearContent } from "..";
 import { handleSubmit } from "./UI";
+import { handleProjectSubmit } from "./UI";
+import { removeTask } from "./UI";
 import trashIcon from '../svgs/trash-can-outline.svg';
 import closeIcon from '../svgs/close.svg';
 import '../style.css';
-import { ToDoList } from "./task";
 
 
 export function createFormTasks() {
@@ -257,7 +258,7 @@ export function addProject() {
     //text input section
     const titleInput = document.createElement('textarea');
     titleInput.className = 'create-new-input';
-    titleInput.setAttribute('id', 'new-todo-title');
+    titleInput.setAttribute('id', 'new-project-title');
     titleInput.placeholder = 'Create New Project :'
     titleInput.setAttribute('required', 'required');
 
@@ -319,10 +320,33 @@ export function addProject() {
         clearContent();
         console.log('Close button was clicked');
     });
+
+    form.addEventListener('submit', handleProjectSubmit)
 }
 
+export function renderProject(project) {
+    //select project container
+    const projectParent = document.querySelector('.projects');
+
+    //create element for project title
+    const projectContainer = document.createElement('li');
+    projectContainer.className = 'project-items';
+
+    //project title
+    const projectTitle = document.createElement('div');
+    projectTitle.className = 'project-title';
+    projectTitle.textContent = project.title;
+
+    //append
+    projectContainer.appendChild(projectTitle);
+
+    projectParent.appendChild(projectContainer);
+
+}
+
+
 //Function to display task
-export function domCreateTaskCard(task) {
+export function renderTask(task) {
     const taskContainer = document.querySelector('.task-container');
 
     //Create task-card
@@ -353,6 +377,7 @@ export function domCreateTaskCard(task) {
     const deleteButton = document.createElement('img');
     deleteButton.setAttribute('id', 'delete');
     deleteButton.src = trashIcon;
+    deleteButton.onclick = () => removeTask(task.id);
 
     taskCard.appendChild(completeCheck);
     taskCard.appendChild(taskTitle);
