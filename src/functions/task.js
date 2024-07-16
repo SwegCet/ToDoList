@@ -1,6 +1,7 @@
 //here we define task class
 export default class ToDoTask {
     constructor(title, detail, date, priority) {
+        this.id = Date.now();
         this.title = title;
         this.detail = detail;
         this.date = date;
@@ -8,13 +9,6 @@ export default class ToDoTask {
     }
 }
 
-export class ToDoList {
-    constructor() {
-        this.tasks = []
-    }
-
-    addTask(task) {
-        this.tasks.push(task);
-    }
+export function Project(title) {
+    this.title = title;
 }
-
