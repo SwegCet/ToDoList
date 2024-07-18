@@ -192,6 +192,7 @@ textarea {
 
 .create-new-entry {
     display: flex;
+    background-color: white;
     flex-direction: column;
     justify-content: space-between;
     position: relative;
@@ -210,13 +211,26 @@ textarea {
     padding: 1rem;
 }
 
-.create-new-date {
+.create-new-date-wrapper {
     display: flex;
     padding-top: 20px;
     align-items: center;
+    justify-content: space-between;
     gap: 10px;
     font-size: 18px;
     padding: 1rem;
+}
+
+.create-new-date {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.add-new-folder {
+    display: flex;
+    gap: 10px;
+    align-items: center;
 }
 
 #new-todo-date {
