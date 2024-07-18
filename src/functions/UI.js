@@ -1,7 +1,8 @@
 import ToDoTask from './task';
 import { Project } from './task';
-import { renderTask, renderProject } from './add';
+import { renderTask, renderProject, addProjectDropdown } from './add';
 import '../style.css';
+import { cleartaskContainer } from '..';
 
 export function handleSubmit(event) {
     event.preventDefault();
@@ -10,8 +11,9 @@ export function handleSubmit(event) {
     const detail = document.querySelector('#new-todo-titles').value;
     const date = document.querySelector('#new-todo-date').value;
     const priority = document.querySelector('input[name="option"]:checked').value;
+    const projectFolder = document.querySelector('.drop-menu-option').value;
 
-    const newTask = new ToDoTask(title, detail, date, priority);
+    const newTask = new ToDoTask(title, detail, date, priority, projectFolder);
 
 
     //call getTodoList
@@ -32,14 +34,6 @@ function getTodoList() {
     //parse the array
     let todoList = JSON.parse(localStorage.getItem('taskList') ?? '[]');
 
-    //sort by date?
-    todoList.sort((a, b) => {
-        let dateA = new Date(a.date);
-        let dateB = new Date(b.date);
-
-        return dateA - dateB;
-    });
-
     return todoList
 }
 
@@ -56,7 +50,7 @@ function updateTodoList(task) {
 }
 
 //display function
-function displayTask() {
+export function displayTask() {
     //Get taskList from local storage
     const taskList = JSON.parse(localStorage.getItem('taskList'));
 
@@ -64,6 +58,13 @@ function displayTask() {
     const taskContainer = document.querySelector('.task-container');
     taskContainer.textContent = '';
 
+    //sort the taskList by date
+    taskList.sort((a, b) => {
+        let dateA = new Date(a.date);
+        let dateB = new Date(b.date);
+
+        return dateA - dateB;
+    });
     //renders container
     taskList.forEach(renderTask);
 }
@@ -98,6 +99,7 @@ export function handleProjectSubmit(event) {
     updateProjectList(newProject);
 
     console.log(getProjectList);
+
     const form = document.querySelector('.create-new');
     form.remove();
 
@@ -121,9 +123,10 @@ function updateProjectList(project) {
 
     //update project array
     localStorage.setItem('projectList', JSON.stringify(projectList));
+
 }
 
-function displayProject() {
+export function displayProject() {
     const projectList = JSON.parse(localStorage.getItem('projectList'));
 
     //clear current current project container
@@ -131,4 +134,24 @@ function displayProject() {
     projectContainer.textContent = '';
 
     projectList.forEach(renderProject);
+}
+
+export function updateProjectDropdown() {
+    //get projectList list
+    const projectList = getProjectList();
+
+    //rerenders list
+    projectList.forEach(addProjectDropdown);
+}
+
+export function filterTasks(project) {
+    //get to do list
+    let taskList = JSON.parse(localStorage.getItem('taskList'));
+
+    //Filters task and store them in a variable
+    let filteredTasks = taskList.filter(task => task.projectId === project);
+
+    //clear and render filtered
+    cleartaskContainer();
+    filteredTasks.forEach(renderTask);
 }
