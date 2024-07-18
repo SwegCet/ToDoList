@@ -1,5 +1,4 @@
-import { clearContent } from "..";
-import { handleSubmit } from "./UI";
+import { filterTasks, handleSubmit, updateProjectDropdown } from "./UI";
 import { handleProjectSubmit } from "./UI";
 import { removeTask } from "./UI";
 import trashIcon from '../svgs/trash-can-outline.svg';
@@ -67,6 +66,9 @@ export function createFormTasks() {
     detailInput.setAttribute('required', 'required');
 
     //date section
+    const dateWrapper = document.createElement('div');
+    dateWrapper.className = 'create-new-date-wrapper';
+
     const dateContainer = document.createElement('div');
     dateContainer.className = 'create-new-date';
 
@@ -80,6 +82,22 @@ export function createFormTasks() {
     dateInput.setAttribute('id', 'new-todo-date');
     dateInput.setAttribute('required', 'required');
 
+    //add a dropdown menu for the projects folder
+    const projectFolderContainer = document.createElement('div');
+    projectFolderContainer.className = 'add-new-folder';
+
+    const projectLabel = document.createElement('label')
+    projectLabel.className = 'project-label';
+    projectLabel.textContent = 'Project Label: ';
+
+    const projectDropdown = document.createElement('select');
+    projectDropdown.className = 'drop-menu-option';
+
+    const projectOption = document.createElement('option');
+    projectOption.className = 'default-option';
+    projectOption.setAttribute('selected', 'selected')
+    projectOption.setAttribute('value', 'Home');
+    projectOption.textContent = 'Home';
 
     //Priority/ Submit Button section
     const prioritySubmitContainer = document.createElement('div');
@@ -158,10 +176,19 @@ export function createFormTasks() {
     //date
     dateContainer.appendChild(dateTitle);
     dateContainer.appendChild(dateInput);
+
+    projectDropdown.appendChild(projectOption);
+    projectFolderContainer.appendChild(projectLabel);
+    projectFolderContainer.appendChild(projectDropdown);
+
+
+    dateWrapper.appendChild(dateContainer);
+    dateWrapper.appendChild(projectFolderContainer);
+
     //prioritysubmitcontainer & input append into newEntry
     newEntry.appendChild(titleInput);
     newEntry.appendChild(detailInput);
-    newEntry.appendChild(dateContainer);
+    newEntry.appendChild(dateWrapper);
     newEntry.appendChild(prioritySubmitContainer);
 
     //Sidebar append 
@@ -208,6 +235,9 @@ export function createFormTasks() {
     //call function for data submission
     form.addEventListener('submit', handleSubmit);
 
+    if (form.textContent != '') {
+        updateProjectDropdown();
+    }
 }
 
 export function addProject() {
@@ -317,7 +347,7 @@ export function addProject() {
     const closeButton = document.querySelector('.closeIconButton');
 
     closeButton.addEventListener('click', () => {
-        clearContent();
+        form.remove();
         console.log('Close button was clicked');
     });
 
@@ -335,15 +365,25 @@ export function renderProject(project) {
     //project title
     const projectTitle = document.createElement('div');
     projectTitle.className = 'project-title';
+    projectTitle.setAttribute('value', `${project.title}`);
     projectTitle.textContent = project.title;
 
     //append
     projectContainer.appendChild(projectTitle);
 
     projectParent.appendChild(projectContainer);
-
 }
 
+export function addProjectDropdown(project) {
+    const dropDown = document.querySelector('.drop-menu-option')
+
+    const projectOptionFolder = document.createElement('option');
+    projectOptionFolder.className = 'option';
+    projectOptionFolder.setAttribute('value', `${project.title}`);
+    projectOptionFolder.textContent = project.title;
+
+    dropDown.appendChild(projectOptionFolder);
+}
 
 //Function to display task
 export function renderTask(task) {
