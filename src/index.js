@@ -1,4 +1,4 @@
-import { createFormTasks, renderProject, renderTask } from './functions/add';
+import { createFormTasks } from './functions/add';
 import { displayProject, displayTask, filterTasks } from './functions/UI';
 import './style.css'
 //this file should contain importing from the function.js to just load up the html
@@ -14,6 +14,16 @@ document.addEventListener('DOMContentLoaded', () => {
     //Call Functions
     displayTask();
     displayProject();
+
+    //Filter based off project list
+    let projectItems = document.querySelectorAll('.project-title');
+    projectItems.forEach(item => {
+        item.addEventListener('click', (event) => {
+            let selectedProject = event.currentTarget.getAttribute('value');
+            filterTasks(selectedProject);
+            console.log(`Clicked Value = ${selectedProject}`);
+        })
+    })
 });
 
 
@@ -31,15 +41,4 @@ navHome.addEventListener('click', () => {
     displayTask();
 })
 
-//add event listener click
-document.addEventListener('DOMContentLoaded', () => {
-    let projectItems = document.querySelectorAll('.project-title');
-    projectItems.forEach(item => {
-        item.addEventListener('click', (event) => {
-            let selectedProject = event.currentTarget.getAttribute('value');
-            filterTasks(selectedProject);
-            console.log(`Clicked Value = ${selectedProject}`);
-        })
-    })
-})
 
