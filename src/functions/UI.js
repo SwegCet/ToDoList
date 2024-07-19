@@ -1,6 +1,6 @@
 import ToDoTask from './task';
 import { Project } from './task';
-import { renderTask, renderProject, addProjectDropdown } from './add';
+import { renderTask, renderProject, addProjectDropdown, openEditForm } from './add';
 import '../style.css';
 import { cleartaskContainer } from '..';
 
@@ -69,6 +69,19 @@ export function displayTask() {
     taskList.forEach(renderTask);
 }
 
+//edit task function
+export function editTask(taskId) {
+    //get Todo List
+    let taskList = JSON.parse(localStorage.getItem('taskList'));
+
+    //filter based on if the ID matches
+    taskList = taskList.filter(task => task.id === taskId);
+
+    console.log(taskList);
+
+    taskList.forEach(openEditForm);
+}
+
 //remove function
 export function removeTask(taskId) {
     //Gets Todo List
@@ -76,7 +89,6 @@ export function removeTask(taskId) {
 
     //filters based off ID matches
     taskList = taskList.filter(task => task.id !== taskId); //Filters out task that matches
-
 
     //update localStorage
     localStorage.setItem('taskList', JSON.stringify(taskList));
