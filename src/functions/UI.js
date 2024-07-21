@@ -82,6 +82,33 @@ export function editTask(taskId) {
     taskList.forEach(openEditForm);
 }
 
+//handle edit submit
+export function handleEditSubmit(event, taskId) {
+    event.preventDefault();
+
+    //get task list
+    const taskList = JSON.parse(localStorage.getItem('taskList'));
+
+    const taskIndex = taskList.findIndex(task => task.id === taskId)
+
+    //Update new input values
+    if (taskIndex !== -1) {
+        taskList[taskIndex] = {
+            ...taskList[taskIndex],
+            title: document.querySelector('#new-todo-title').value,
+            detail: document.querySelector('#new-todo-titles').value,
+            date: document.querySelector('#new-todo-date').value,
+            priority: document.querySelector('input[name="option"]:checked').value,
+            projectFolder: document.querySelector('.drop-menu-option').value,
+        };
+
+        localStorage.setItem('taskList', JSON.stringify(taskList));
+        displayTask();
+        const form = document.querySelector('.create-new');
+        form.remove();
+    }
+}
+
 //remove function
 export function removeTask(taskId) {
     //Gets Todo List
@@ -166,4 +193,4 @@ export function filterTasks(project) {
     //clear and render filtered
     cleartaskContainer();
     filteredTasks.forEach(renderTask);
-}
+};
