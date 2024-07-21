@@ -1,5 +1,4 @@
-import { handleSubmit, updateProjectDropdown, editTask } from "./UI";
-import { handleProjectSubmit } from "./UI";
+import { handleSubmit, handleProjectSubmit, handleEditSubmit, updateProjectDropdown, editTask } from "./UI";
 import { removeTask } from "./UI";
 import trashIcon from '../svgs/trash-can-outline.svg';
 import editIcon from '../svgs/file-edit-outline.svg';
@@ -581,13 +580,7 @@ export function openEditForm(task) {
     })
 
     //Iterate through the radio inputs
-    const radio = document.querySelectorAll('input[name="option"]');
-
-    radio.forEach(radio => {
-        if (radio.value === task.priority) {
-            radio.checked = true;
-        }
-    })
+    //Check if the bug is because the DOM isn't fully loaded
 
     const submitButton = document.createElement('input');
     submitButton.setAttribute('type', 'submit');
@@ -651,12 +644,20 @@ export function openEditForm(task) {
         console.log('Close button was clicked');
     });
 
-    //call function for data submission
-    form.addEventListener('submit', handleSubmit);
+    const radio = document.querySelectorAll('input[name="option"]');
 
-    task.id = Date.now();
-    console.log(task.title);
-    console.log(task.id);
+    radio.forEach(radio => {
+        if (radio.value === task.priority) {
+            radio.checked = true;
+        }
+    });
+
+    const id = task.id;
+
+    //call function for data submission
+    form.addEventListener('submit', function (event) {
+        handleEditSubmit(event, id);
+    });
 
     if (form.textContent != '') {
         updateProjectDropdown();
